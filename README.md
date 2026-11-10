@@ -1,2 +1,3 @@
-# http-server-beej
-# http-server-beej
+# We larping socket programming with this one
+
+[Study Note](notes.md)

@@ -118,5 +118,36 @@ struct addrinfo {
 };
 ```
 
+You will load this struct up a bit and then call getaddrinfo(). It'll return a pointer to a new linked list of these structurers filled out with all the goodies you need.
+
+You might not usually need to write to these structures; you can just call getaddrinfo() to fill out the rest. You will still need to peer (whatever that mean) into `struct S` to get the value out.
+
+```c
+struct sockaddr {
+  unsigned short    sa_family; // AF_INET or AF_INET6, basically the family of the ip address
+  char              sa_data;   // 14 bytes of protocol address
+}
+```
+
+`sa_data` contains a destination address and port number for the socket.
+
+To deal with `struct sockaddr`, programmers created a parallel structure: `struct sockaddr_in` to be used with IPv4. And this is the important bit: a pointer to a struct sockaddr_in can be cast to a pointer to a struct sockaddr and vice versa. so even though `connect()` wants a `struct sockaddr*` you can still use a `struct sockaddr_in` and cast it at the last minute!
+
+```c
+// IPv4 only, IPv6 used sockaddr_in6
+
+struct sockaddr_in {
+  short int          sin_family;  // Address Family, AF_INET
+  unsigned short int sin_port;    // Port Number
+  struct in_addr     sin_addr;    // Internet address
+  unsigned char      sin_zero[8]; // Same size as struct sockaddr
+}
+```
+
+
+
+
+
+
 
 
